@@ -2,10 +2,10 @@
 
 ## Local Development Setup
 ### Running the code
-You'll need Node.js and the .NET Desktop Runtime 5.0.5, I use the Visual Studio Community 2019 IDE.
+You'll need Node.js and the .NET Desktop Runtime 5.x.x, I use the Visual Studio Community 2019 IDE.
 
 ### Database
-This project has been configured for code first migrations using Entity Framework and a PostgreSQL database. I opt to run the PostgreSQL instance inside a Docker container locally.
+This project uses code first migrations with Entity Framework and a PostgreSQL database. I opt to run the PostgreSQL instance inside a Docker container locally.
 
 At the command prompt:
 
@@ -34,3 +34,4 @@ To create the new tables in the database enter for following at the command prom
 ```console
    dotnet ef database update
 ```
+All done!
