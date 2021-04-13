@@ -32,5 +32,5 @@ If this command has ran sucessfully a folder called "Migrations" should now be v
 To create the new tables in the database enter for following at the command prompt:
 
 ```console
-  dotnet ef database update
+   dotnet ef database update
 ```
