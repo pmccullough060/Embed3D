@@ -1,5 +1,6 @@
 ﻿import React, { Component } from 'react';
-import authService from './api-authorization/AuthorizeService'
+import authService from './api-authorization/AuthorizeService';
+import { EmbedView } from '../components/EmbedView';
 
 export class UserWorkspace extends Component {
 
@@ -16,7 +17,10 @@ export class UserWorkspace extends Component {
 
     render() {
         return (<div>
-            This will be a list of the users workspaces.... in a table or something
+            <EmbedView
+                _id= "1"
+                _name= "Test Embed View">
+            </EmbedView>
         </div>);
     }
 
