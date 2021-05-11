@@ -8,7 +8,7 @@ export class UserWorkspace extends Component {
 
     constructor(props) {
         super(props);
-        this.state = { workspaces: [], loading: true };
+        this.state = { embedViews: [], loading: true };
     }
 
     componentDidMount() {
@@ -16,21 +16,37 @@ export class UserWorkspace extends Component {
     }
 
     render() {
-        return (<div>
-            <EmbedView
-                _id= "1"
-                _name= "Test Embed View">
-            </EmbedView>
-        </div>);
+
+        if (this.state.embedViews) {
+            return (<div>
+                {
+                    this.state.embedViews.map((_embedView, _index) => {
+                        return (
+                            <div key={ _index }>
+                                <EmbedView
+                                    embedView={ _embedView }>
+                                </EmbedView>
+                            </div>
+                        )
+                    })
+                }
+            </div>);
+        }
+        else {
+            return (<div>Loading content</div>)
+        }
     }
 
     //For the currently signed in user we need to retrieve their workspaces.
+    //We then retrieve the embedviews associated with this user..
+
     async populateWorkspace() {
         const token = await authService.getAccessToken();
         const response = await fetch('workspaces', {
             headers: !token ? {} : { 'Authorization': `Bearer ${token}`}
         });
         const data = await response.json();
-        this.setState({ workspaces: data, loading: false });
+        console.log(data);
+        this.setState({ embedViews: data, loading: false });
     }
 }

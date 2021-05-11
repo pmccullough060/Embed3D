@@ -6,14 +6,14 @@ export class EmbedView extends Component {
 
     render() {
 
-        const { _id, _name  } = this.props;
+        const { embedView } = this.props;
 
         return (
-            <div key={ _id }>
+            <div>
                 <Card>
                     <Card.Body>
-                        <Card.Title>{ _name }</Card.Title>
-                        <Card.Body>Some waffle about what this workspace does</Card.Body>
+                        <Card.Title>{embedView.name}</Card.Title>
+                        <Card.Body>{embedView.name}</Card.Body>
                     </Card.Body>
                 </Card>
             </div>
