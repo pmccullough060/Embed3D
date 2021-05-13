@@ -1,10 +1,13 @@
-﻿using Embed3d.Models;
+﻿using Embed3d.Data;
+using Embed3d.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace Embed3d.Controllers
@@ -15,37 +18,36 @@ namespace Embed3d.Controllers
     public class WorkspacesController : ControllerBase
     {
         private readonly ILogger<WorkspacesController> _logger;
+        private readonly ApplicationDbContext _context;
 
-        public WorkspacesController(ILogger<WorkspacesController> logger)
+        public WorkspacesController(ILogger<WorkspacesController> logger, ApplicationDbContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
         [HttpGet]
         public IEnumerable<EmbedView> Get()
+        {            
+            string nameIdentifier = User.FindFirstValue(ClaimTypes.NameIdentifier); //Getting the id of the current user for the claim
+
+            ApplicationUser user = _context.Users //retrieving the current user from the database using an ef query
+                .Include(x => x.EmbedView)
+                .First(y => y.Id == nameIdentifier);
+
+            return user.EmbedView;
+        }
+
+        [HttpPost]
+        public IActionResult Post()
         {
+            return new OkObjectResult("Updated Embed View");
+        }
 
-            //Test code for the moment.
-
-            IEnumerable<EmbedView> embedViews = new List<EmbedView>()
-            {
-                new EmbedView()
-                {
-                    Id = 1,
-                    Name = "First View",
-                    Description = "This is the first embedview",
-                    ApplicationUser = null
-                },
-                new EmbedView()
-                {
-                    Id = 2,
-                    Name = "Second View",
-                    Description = "This is the second embed view",
-                    ApplicationUser = null
-                },
-            };
-
-            return embedViews;
+        [HttpDelete]
+        public IActionResult Delete(string embedView)
+        {
+            return new OkObjectResult("Deleted Embed View");
         }
     }
 }
