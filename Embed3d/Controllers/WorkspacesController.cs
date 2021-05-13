@@ -33,12 +33,14 @@ namespace Embed3d.Controllers
                 {
                     Id = 1,
                     Name = "First View",
+                    Description = "This is the first embedview",
                     ApplicationUser = null
                 },
                 new EmbedView()
                 {
                     Id = 2,
                     Name = "Second View",
+                    Description = "This is the second embed view",
                     ApplicationUser = null
                 },
             };
