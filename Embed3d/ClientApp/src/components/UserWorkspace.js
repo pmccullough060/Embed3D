@@ -1,6 +1,8 @@
 ﻿import React, { Component } from 'react';
 import authService from './api-authorization/AuthorizeService';
 import { EmbedView } from '../components/EmbedView';
+import ListGroup from 'react-bootstrap/ListGroup';
+import { ThreeScene } from './ThreeScene';
 
 export class UserWorkspace extends Component {
 
@@ -20,7 +22,10 @@ export class UserWorkspace extends Component {
         if (this.state.embedViews) {
             return (
                 <div>
-                    <div>
+
+                    <ThreeScene/>
+
+                    <ListGroup>
                         {
                             this.state.embedViews.map((_embedView, _index) => {
                                 return (
@@ -32,7 +37,7 @@ export class UserWorkspace extends Component {
                                 )
                             })
                         }
-                    </div>
+                    </ListGroup>
                 </div>);
         }
         else {
@@ -46,7 +51,7 @@ export class UserWorkspace extends Component {
     async populateWorkspace() {
         const token = await authService.getAccessToken();
         const response = await fetch('workspaces', {
-            headers: !token ? {} : { 'Authorization': `Bearer ${token}`}
+            headers: !token ? {} : { 'Authorization': `Bearer ${token}` }
         });
         const data = await response.json();
         console.log(data);
