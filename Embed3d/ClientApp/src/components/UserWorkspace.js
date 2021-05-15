@@ -18,19 +18,22 @@ export class UserWorkspace extends Component {
     render() {
 
         if (this.state.embedViews) {
-            return (<div>
-                {
-                    this.state.embedViews.map((_embedView, _index) => {
-                        return (
-                            <div key={ _index }>
-                                <EmbedView
-                                    embedView={ _embedView }>
-                                </EmbedView>
-                            </div>
-                        )
-                    })
-                }
-            </div>);
+            return (
+                <div>
+                    <div>
+                        {
+                            this.state.embedViews.map((_embedView, _index) => {
+                                return (
+                                    <div key={_index}>
+                                        <EmbedView
+                                            embedView={_embedView}>
+                                        </EmbedView>
+                                    </div>
+                                )
+                            })
+                        }
+                    </div>
+                </div>);
         }
         else {
             return (<div>Loading content</div>)
