@@ -2,7 +2,11 @@
 import authService from './api-authorization/AuthorizeService';
 import { EmbedView } from '../components/EmbedView';
 import ListGroup from 'react-bootstrap/ListGroup';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 import { ThreeScene } from './ThreeScene';
+
 
 export class UserWorkspace extends Component {
 
@@ -21,24 +25,33 @@ export class UserWorkspace extends Component {
 
         if (this.state.embedViews) {
             return (
-                <div>
+                <Container className="d-flex flex-column">
 
-                    <ThreeScene/>
+                    <Row>
+                        <Col className="d-flex justify-content-center">
+                            <ThreeScene/>
+                        </Col>
+                    </Row>
 
-                    <ListGroup>
-                        {
-                            this.state.embedViews.map((_embedView, _index) => {
-                                return (
-                                    <div key={_index}>
-                                        <EmbedView
-                                            embedView={_embedView}>
-                                        </EmbedView>
-                                    </div>
-                                )
-                            })
-                        }
-                    </ListGroup>
-                </div>);
+                    <Row>
+                        <Col className="mx-auto">
+                            <ListGroup>
+                                {
+                                    this.state.embedViews.map((_embedView, _index) => {
+                                        return (
+                                            <div key={_index}>
+                                                <EmbedView
+                                                    embedView={_embedView}>
+                                                </EmbedView>
+                                            </div>
+                                        )
+                                    })
+                                }
+                            </ListGroup>
+                        </Col>
+                    </Row>
+  
+                </Container>);
         }
         else {
             return (<div>Loading content</div>)
