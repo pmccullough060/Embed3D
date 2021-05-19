@@ -1,5 +1,9 @@
 ﻿import React, { Component } from 'react';
 import * as THREE from "three";
+import './ThreeScene.css';
+import Accordion from 'react-bootstrap/Accordion';
+import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
 
 export class ThreeScene extends Component {
 
@@ -11,8 +15,8 @@ export class ThreeScene extends Component {
         this.scene = new THREE.Scene();
 
         this.renderer = new THREE.WebGLRenderer({ antialias: true });
-        this.renderer.setClearColor("#263238");
-        this.renderer.setSize(width, height);
+        this.renderer.setClearColor("#F4F6F6");
+        this.renderer.setSize(width, height); 
         this.mount.appendChild(this.renderer.domElement);
 
         this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -32,21 +36,28 @@ export class ThreeScene extends Component {
 
         this.scene.add(ambient);
 
+        //remember this. saves things to component
+
         //this.start();
 
-        //test
-        //window.addEventListener("resize", this.resize);
+        window.addEventListener("resize", this.resize);
 
         //Redraw the scene with Camera and Scene object.
         this.renderScene();
     }
 
+    createLighting = () => {
+        //set up the various lighting in this container.
+    };
+
+    //Start the animation sequence.
     start = () => {
         if (!this.frameId) {
             this.frameId = window.requestAnimationFrame(this.animate);
         }
     };
 
+    //Stop the animation sequence.
     stop = () => {
         cancelAnimationFrame(this.frameId);
     };
@@ -55,18 +66,38 @@ export class ThreeScene extends Component {
         if (this.renderer) this.renderer.render(this.scene, this.camera);
     };
 
+    //This is where we can handle the resizing of the viewer.
     resize = () => {
-        //Update this method so that it makes the viewer smaller that 800 x 600 px
-
         this.renderer.setSize(window.innerWidth, window.innerHeight);
         this.camera.aspect = window.innerWidth / window.innerHeight;
         this.camera.updateProjectionMatrix();
     };
 
+
+    //The main div contains the three.js canvas
+    //
+
     render() {
-        return (<div
-            style={{ width: "800px", height: '600px' }}
-            ref={mount => { this.mount = mount }}
-        />);
+        return (
+            <div className="first" ref={mount => { this.mount = mount }}>
+                
+
+                <Accordion className="second" defaultActiveKey="0">
+
+                    <Card>
+                        <Card.Header>
+                            <Accordion.Toggle as={Button} variant="link" eventKey="0">
+                                Click me!
+                            </Accordion.Toggle>
+                        </Card.Header>
+                        <Accordion.Collapse eventKey="0">
+                            <Card.Body>Hello! I'm the body</Card.Body>
+                        </Accordion.Collapse>
+                    </Card>
+
+                </Accordion>
+
+            </div>
+           );
     }
 }

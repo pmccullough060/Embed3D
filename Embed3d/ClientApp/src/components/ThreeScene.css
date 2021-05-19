@@ -1,0 +1,25 @@
+﻿
+body {
+    overflow: hidden;
+}
+
+.first {
+    position: absolute;
+    z-index: 1;
+    top: 60px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.second {
+    position: absolute;
+    z-index: 2;
+    top: 10px;
+    left: 50px;
+    color: cadetblue;
+}
+
+.column{
+    height: 100vh;
+}

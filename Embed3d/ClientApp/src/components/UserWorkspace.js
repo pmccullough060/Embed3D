@@ -25,7 +25,7 @@ export class UserWorkspace extends Component {
 
         if (this.state.embedViews) {
             return (
-                <Container className="d-flex flex-column">
+                <Container fluid>
 
                     <Row>
                         <Col className="d-flex justify-content-center">
