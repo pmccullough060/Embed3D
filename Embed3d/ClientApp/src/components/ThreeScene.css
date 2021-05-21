@@ -16,8 +16,7 @@ body {
     position: absolute;
     z-index: 2;
     top: 10px;
-    left: 50px;
-    color: cadetblue;
+    left: 10px;
 }
 
 .column{

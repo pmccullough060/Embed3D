@@ -4,6 +4,7 @@ import './ThreeScene.css';
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import { OrbitControls } from '@three-ts/orbit-controls';
 
 export class ThreeScene extends Component {
 
@@ -21,11 +22,16 @@ export class ThreeScene extends Component {
 
         this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
+        //Camera Controls
+        const controls = new OrbitControls(this.camera, this.renderer.domElement);
+
         var geometry = new THREE.BoxGeometry(1, 1, 1);
 
         var material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
 
         var cube = new THREE.Mesh(geometry, material);
+
+        cube.rotateX = 5;
 
         this.scene.add(cube);
 
@@ -38,7 +44,7 @@ export class ThreeScene extends Component {
 
         //remember this. saves things to component
 
-        //this.start();
+        this.start();
 
         window.addEventListener("resize", this.resize);
 
@@ -62,6 +68,13 @@ export class ThreeScene extends Component {
         cancelAnimationFrame(this.frameId);
     };
 
+    animate = () => {
+        //Animate Models Here
+        //ReDraw Scene with Camera and Scene Object
+        this.renderScene();
+        this.frameId = window.requestAnimationFrame(this.animate);
+    };
+
     renderScene = () => {
         if (this.renderer) this.renderer.render(this.scene, this.camera);
     };
@@ -73,26 +86,34 @@ export class ThreeScene extends Component {
         this.camera.updateProjectionMatrix();
     };
 
+    //All of the accordion stuff on the left side should be its own react component for managing workspaces.
 
-    //The main div contains the three.js canvas
-    //
-
+    //We cant use flexbox for the main three.js rendered we handle resizing inside the javascript code.
     render() {
         return (
             <div className="first" ref={mount => { this.mount = mount }}>
-                
-
                 <Accordion className="second" defaultActiveKey="0">
 
                     <Card>
                         <Card.Header>
-                            <Accordion.Toggle as={Button} variant="link" eventKey="0">
-                                Click me!
+                            <Accordion.Toggle as={Button} variant="toggle" eventKey="0">
+                                Your Embed Views
                             </Accordion.Toggle>
                         </Card.Header>
                         <Accordion.Collapse eventKey="0">
+                            <Card.Body>Hello! I'm the body, this is where the users will load stuff</Card.Body>
+                        </Accordion.Collapse>
+
+                        <Card.Header>
+                            <Accordion.Toggle as={Button} variant="link" eventKey="1">
+                                Click me!
+                            </Accordion.Toggle>
+                        </Card.Header>
+                        <Accordion.Collapse eventKey="1">
                             <Card.Body>Hello! I'm the body</Card.Body>
                         </Accordion.Collapse>
+
+
                     </Card>
 
                 </Accordion>
