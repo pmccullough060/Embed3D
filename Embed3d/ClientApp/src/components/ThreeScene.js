@@ -8,6 +8,14 @@ import { OrbitControls } from '@three-ts/orbit-controls';
 
 export class ThreeScene extends Component {
 
+    constructor() {
+        super();
+        this.state = {
+            selectedEmbedViewIndex: null,
+            selectedEmbedView: null
+        }
+    }
+
     componentDidMount() {
 
         const width = this.mount.clientWidth;
@@ -15,8 +23,8 @@ export class ThreeScene extends Component {
 
         this.scene = new THREE.Scene();
 
-        this.renderer = new THREE.WebGLRenderer({ antialias: true });
-        this.renderer.setClearColor("#F4F6F6");
+        this.renderer = new THREE.WebGLRenderer({ alpha: true });
+        this.renderer.setClearColor(0x000000, 0);
         this.renderer.setSize(width, height); 
         this.mount.appendChild(this.renderer.domElement);
 
@@ -37,12 +45,7 @@ export class ThreeScene extends Component {
 
         this.camera.position.z = 5;
 
-        var color = new THREE.Color(0.2, 0.2, 0.2);
-        var ambient = new THREE.AmbientLight(color.getHex());
-
-        this.scene.add(ambient);
-
-        //remember this. saves things to component
+        this.createLighting();
 
         this.start();
 
@@ -50,20 +53,22 @@ export class ThreeScene extends Component {
 
         //Redraw the scene with Camera and Scene object.
         this.renderScene();
+
+        this.createLighting();
     }
 
     createLighting = () => {
-        //set up the various lighting in this container.
+        var color = new THREE.Color(0.2, 0.2, 0.2);
+        var ambient = new THREE.AmbientLight(color.getHex());
+        this.scene.add(ambient);
     };
 
-    //Start the animation sequence.
     start = () => {
         if (!this.frameId) {
             this.frameId = window.requestAnimationFrame(this.animate);
         }
     };
 
-    //Stop the animation sequence.
     stop = () => {
         cancelAnimationFrame(this.frameId);
     };
@@ -79,18 +84,16 @@ export class ThreeScene extends Component {
         if (this.renderer) this.renderer.render(this.scene, this.camera);
     };
 
-    //This is where we can handle the resizing of the viewer.
     resize = () => {
         this.renderer.setSize(window.innerWidth, window.innerHeight);
         this.camera.aspect = window.innerWidth / window.innerHeight;
         this.camera.updateProjectionMatrix();
     };
 
-    //All of the accordion stuff on the left side should be its own react component for managing workspaces.
-
-    //We cant use flexbox for the main three.js rendered we handle resizing inside the javascript code.
     render() {
         return (
+
+            //the three.js scene.
             <div className="first" ref={mount => { this.mount = mount }}>
                 <Accordion className="second" defaultActiveKey="0">
 
@@ -113,12 +116,12 @@ export class ThreeScene extends Component {
                             <Card.Body>Hello! I'm the body</Card.Body>
                         </Accordion.Collapse>
 
-
                     </Card>
-
                 </Accordion>
-
             </div>
            );
     }
+
+    //Gets passed into the EmbedViewSidebar
+    selectEmbedView = (embedView, index) => this.setState({selectedEmbedView: embedView, selectedEmbedViewIndex: index})
 }
