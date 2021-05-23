@@ -1,6 +1,10 @@
 ﻿import React, { Component } from 'react';
+import { EmbedView } from '../components/EmbedView';
+import { ContextAwareToggle } from '../components/ContextAwareToggle';
 import authService from './api-authorization/AuthorizeService';
 import Accordion from 'react-bootstrap/Accordion';
+import ListGroup from 'react-bootstrap/ListGroup';
+import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
 export class EmbedViewSidebar extends Component {
@@ -17,16 +21,35 @@ export class EmbedViewSidebar extends Component {
         this.populateWorkspace();
     }
 
+    //have a card at the very top for creating a new workspace.
+    //then the list of all the cards in the Accordion collapse thingy.
+
     render() {
         if (this.state.embedViews) {
-            return (<div>place holder</div>);
+            return (
+                <Accordion defaultActiveKey="0">
+                    <ContextAwareToggle eventKey="0"/>
+                    <Accordion.Collapse eventKey="0">
+                        <ListGroup>
+                            {
+                                this.state.embedViews.map((_embedView, _index) => {
+                                    return (
+                                        <div key={_index}>
+                                            <EmbedView embedView={_embedView} />
+                                        </div>)
+                                })
+                            }
+                        </ListGroup>
+                    </Accordion.Collapse>
+                </Accordion>
+            );
         }
         else {
-            return (<div>Loading the content</div>);
+            return (<div>Loading the content</div>)
         }
     }
 
-    async populateWorspace() {
+    async populateWorkspace() {
         const token = await authService.getAccessToken();
         const response = await fetch('workspaces', {
             headers: !token ? {} : { 'Authorization': `Bearer ${token}` }

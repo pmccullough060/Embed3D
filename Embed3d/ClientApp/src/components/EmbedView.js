@@ -13,7 +13,7 @@ export class EmbedView extends Component {
         return (
             <Container className="d-flex h-100 mt-2">
                 <Row className="m-auto align-self-center">
-                    <Card style={{ width: '40rem' }}>
+                    <Card style={{ width: '20rem' }}>
                         <Card.Header as="h5">{embedView.name}</Card.Header>
                         <Card.Body>
                             <Card.Body>{embedView.description}</Card.Body>

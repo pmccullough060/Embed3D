@@ -5,6 +5,7 @@ import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { OrbitControls } from '@three-ts/orbit-controls';
+import { EmbedViewSidebar } from './EmbedViewSidebar';
 
 export class ThreeScene extends Component {
 
@@ -95,29 +96,9 @@ export class ThreeScene extends Component {
 
             //the three.js scene.
             <div className="first" ref={mount => { this.mount = mount }}>
-                <Accordion className="second" defaultActiveKey="0">
-
-                    <Card>
-                        <Card.Header>
-                            <Accordion.Toggle as={Button} variant="toggle" eventKey="0">
-                                Your Embed Views
-                            </Accordion.Toggle>
-                        </Card.Header>
-                        <Accordion.Collapse eventKey="0">
-                            <Card.Body>Hello! I'm the body, this is where the users will load stuff</Card.Body>
-                        </Accordion.Collapse>
-
-                        <Card.Header>
-                            <Accordion.Toggle as={Button} variant="link" eventKey="1">
-                                Click me!
-                            </Accordion.Toggle>
-                        </Card.Header>
-                        <Accordion.Collapse eventKey="1">
-                            <Card.Body>Hello! I'm the body</Card.Body>
-                        </Accordion.Collapse>
-
-                    </Card>
-                </Accordion>
+                <div className = "second">
+                    <EmbedViewSidebar/>
+                </div>
             </div>
            );
     }
