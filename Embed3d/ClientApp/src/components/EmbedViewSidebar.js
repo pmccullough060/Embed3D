@@ -1,19 +1,18 @@
 ﻿import React, { Component } from 'react';
 import { EmbedView } from '../components/EmbedView';
-import { ContextAwareToggle } from '../components/ContextAwareToggle';
 import authService from './api-authorization/AuthorizeService';
-import Accordion from 'react-bootstrap/Accordion';
-import ListGroup from 'react-bootstrap/ListGroup';
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
+import { ListGroup, Collapse, Button } from 'reactstrap';
 
 export class EmbedViewSidebar extends Component {
 
     constructor() {
         super();
+        this.toggle = this.toggle.bind(this);
+
         this.state = {
             embedViews: [],
-            loading: true
+            loading: true,
+            collapse: false
         };
     }
 
@@ -21,15 +20,17 @@ export class EmbedViewSidebar extends Component {
         this.populateWorkspace();
     }
 
-    //have a card at the very top for creating a new workspace.
-    //then the list of all the cards in the Accordion collapse thingy.
+    toggle() {
+        this.setState({ collapse: !this.state.collapse });
+    }
+
 
     render() {
         if (this.state.embedViews) {
             return (
-                <Accordion defaultActiveKey="0">
-                    <ContextAwareToggle eventKey="0"/>
-                    <Accordion.Collapse eventKey="0">
+                <div>
+                    <Button color="primary" onClick={this.toggle} style={{marginBottom: '1rem'}}>Toggle</Button>
+                    <Collapse isOpen={this.state.collapse}>
                         <ListGroup>
                             {
                                 this.state.embedViews.map((_embedView, _index) => {
@@ -40,8 +41,8 @@ export class EmbedViewSidebar extends Component {
                                 })
                             }
                         </ListGroup>
-                    </Accordion.Collapse>
-                </Accordion>
+                    </Collapse>
+                </div>
             );
         }
         else {

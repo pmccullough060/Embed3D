@@ -1,10 +1,7 @@
 ﻿import React, { Component } from 'react';
 import authService from './api-authorization/AuthorizeService';
 import { EmbedView } from '../components/EmbedView';
-import ListGroup from 'react-bootstrap/ListGroup';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import { ListGroup, Container, Row, Col } from 'reactstrap';
 import { ThreeScene } from './ThreeScene';
 
 

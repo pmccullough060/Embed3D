@@ -1,10 +1,7 @@
 ﻿import React, { Component } from 'react';
-import Card from 'react-bootstrap/Card';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
+import { Container, Row, Card, CardTitle, CardBody } from 'reactstrap';
 
 export class EmbedView extends Component {
-    static displayName = EmbedView.name;
 
     render() {
 
@@ -14,10 +11,10 @@ export class EmbedView extends Component {
             <Container className="d-flex h-100 mt-2">
                 <Row className="m-auto align-self-center">
                     <Card style={{ width: '20rem' }}>
-                        <Card.Header as="h5">{embedView.name}</Card.Header>
-                        <Card.Body>
-                            <Card.Body>{embedView.description}</Card.Body>
-                        </Card.Body>
+                        <CardTitle as="h5">{embedView.name}</CardTitle>
+                        <CardBody>
+                            {embedView.description}
+                        </CardBody>
                     </Card>
                 </Row> 
             </Container>

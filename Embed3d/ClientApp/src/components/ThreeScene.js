@@ -1,9 +1,6 @@
 ﻿import React, { Component } from 'react';
 import * as THREE from "three";
 import './ThreeScene.css';
-import Accordion from 'react-bootstrap/Accordion';
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
 import { OrbitControls } from '@three-ts/orbit-controls';
 import { EmbedViewSidebar } from './EmbedViewSidebar';
 
